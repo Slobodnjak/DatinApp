@@ -11,9 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<DataContext> (opcija => opcija.UseSqlite(builder.Configuration.GetConnectionString("Kon")));
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
-app.UseAuthorization();
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
 app.MapControllers();
 
